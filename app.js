@@ -14,7 +14,7 @@ var log_in = function () {
     casper.then(function () {
         this.sendKeys('#ssc-liu', 'ionathanr@gmail.com');
         console.log('\n\ncopied username');
-        this.sendKeys('#ssc-lipw', 'prisma01');
+        this.sendKeys('#ssc-lipw', '***');
         console.log('\n\ncopied password');
         casper.capture('login.png');
         casper.thenClick(xpath('//*[@id="ssc-lis"]'), function() {
