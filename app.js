@@ -20,7 +20,7 @@ var log_in = function () {
         casper.thenClick(xpath('//*[@id="ssc-lis"]'), function() {
 	       console.log('logging in...');
         });
-        casper.wait(3000, function() {
+        casper.wait(4000, function() {
             casper.capture('logged-in.png');
             console.log('logged in');
         });
@@ -29,11 +29,31 @@ var log_in = function () {
 
 log_in();
 
-/*var logged_in = function () {
-    var id = casper.getElementInfo('.ssc-un')
-    console.log('got here', id);
-}
+var odds = [];
+get_odds = function() {
+	casper.then(function() {
+	odds = this.getElementsInfo('.ui-runner-price');
 
-logged_in();*/
+	console.log(odds[0]["text"]);
+	console.log("got here")
+
+	casper.then(function() {
+		for (value in odds) {
+			if (parseInt(odds[value]["text"]) < 2) {
+				console.log(odds[value]["text"]);
+				casper.click(odds[value]["attributes"]["id"]);
+				casper.capture("clicking.png")
+			}
+			else {
+				console.log("geater");
+			}
+		}
+	})
+});
+};
+
+get_odds();
+
+
 
 casper.run();
