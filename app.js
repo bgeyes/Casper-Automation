@@ -30,27 +30,40 @@ var log_in = function () {
 log_in();
 
 var odds = [];
-get_odds = function() {
+var links = [];
+var get_odds = function() {
 	casper.then(function() {
-	odds = this.getElementsInfo('.ui-runner-price');
+	odds = this.getElementsInfo('.mod-inplaysports .ui-runner-price');
+    links = this.getElementsInfo('.mod-inplaysports .com-bet-button.ui-bet-button');
 
-	console.log(odds[0]["text"]);
 	console.log("got here")
 
 	casper.then(function() {
-		for (value in odds) {
-			if (parseInt(odds[value]["text"]) < 2) {
-				console.log(odds[value]["text"]);
-				casper.click(odds[value]["attributes"]["id"]);
-				casper.capture("clicking.png")
+		for (var i = 0; i < odds.length; i++) {
+			if (parseInt(odds[i]["text"]) < 2) {
+				console.log(odds[i]["text"]);
+                //console.log(links[i]["tag"]);
+                casper.then(function() {
+                    //this.click(xpath('//*[@id="' + links[i]["attributes"]["id"] + '"]'));
+                    this.click(xpath('//*[@id="yui_3_5_0_1_1459860967410_165278"]'), function () {
+                        console.log("clicked");
+                    });
+                });
+				casper.capture("clicking.png");
 			}
 			else {
-				console.log("geater");
+				console.log("greater");
 			}
 		}
 	})
-});
+})
 };
+  
+casper.then(function () {
+    this.click(xpath('//*[@id="yui_3_5_0_1_1459866610881_17262"]'));
+    console.log("clicked");
+})  
+
 
 get_odds();
 
